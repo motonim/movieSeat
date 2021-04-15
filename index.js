@@ -3,15 +3,25 @@ const seats = document.querySelectorAll('.row .seat:not(.occupied)');
 const count = document.getElementById('count');
 const total = document.getElementById('total');
 const movieSelect = document.getElementById('movie');
-const ticketPrice = +movieSelect.value;
+let ticketPrice = +movieSelect.value;
 
 // Update total and count
 function updateSelectedCount() {
-  const selectedSeats = document.querySelectorAll('.row .seat .selected');
+  const selectedSeats = document.querySelectorAll('.row .seat.selected');
+
   const selectedSeatsCount = selectedSeats.length;
-  console.log(selectedSeatsCount);
+
+  count.innerText = selectedSeatsCount;
+  total.innerText = selectedSeatsCount * ticketPrice;
 }
 
+// Movie select event
+movieSelect.addEventListener('change', function (e) {
+  ticketPrice = +e.target.value;
+  updateSelectedCount();
+});
+
+// Seat click event
 container.addEventListener('click', function (e) {
   if (
     e.target.classList.contains('seat') &&
